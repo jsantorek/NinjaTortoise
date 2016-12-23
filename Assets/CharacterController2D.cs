@@ -6,7 +6,8 @@ public class CharacterController2D : MonoBehaviour {
     public float v_walk = 5.0f;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         rigidbody = GetComponent<Rigidbody2D>();
 	}
 	
