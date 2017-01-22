@@ -4,7 +4,8 @@ using System.Collections;
 
 public class CharacterStatus : MonoBehaviour
 {
-    public Text GUI_exposition;
+    public Text GUI_Objectives;
+    public Text GUI_Exposition;
 
 
 
@@ -16,9 +17,10 @@ public class CharacterStatus : MonoBehaviour
 
     void Start()
     {
-        exposition = e_min;
+        exposition = 50.0f;
         objectives_all = GameObject.FindGameObjectsWithTag("Objective").Length;
-        GUI_exposition.text = objectives_completed.ToString() + " / " + objectives_all.ToString();
+        GUI_Objectives.text = objectives_completed.ToString() + "/" + objectives_all.ToString();
+        GUI_Exposition.text = exposition.ToString() + "%";
     }
 
     public bool isExposed()
@@ -30,15 +32,19 @@ public class CharacterStatus : MonoBehaviour
     {
         exposition += e;
         exposition = Mathf.Clamp(exposition, e_min, e_max);
-        Debug.Log(exposition);
+        GUI_Exposition.text = exposition.ToString() + " %";
     }
 
     public void ObjectiveReached()
     {
         objectives_completed++;
-        GUI_exposition.text = objectives_completed.ToString() + " / " + objectives_all.ToString();
+        GUI_Objectives.text = objectives_completed.ToString() + " / " + objectives_all.ToString();
         if (objectives_completed >= objectives_all)
-            Debug.Log("END GAME");
+            Debug.Log("GAME WON");
     }
 
+    public void Caught()
+    {
+        Debug.LogError("GAME OVER");
+    }
 }

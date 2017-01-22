@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Objective : MonoBehaviour {
-    void OnTriggerEnter2D(Collider2D other)
+public class Objective : MonoBehaviour
+{
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
