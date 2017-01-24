@@ -9,8 +9,6 @@ public class CharacterStatus : MonoBehaviour
     public Text GUI_Objectives;
     public Text GUI_Exposition;
 
-
-
     private float e_min = 0.0f;
     private float e_max = 100.0f;
     public float exposition;
