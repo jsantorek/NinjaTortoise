@@ -13,7 +13,7 @@ public class CharacterMotor : MonoBehaviour
 	
 	void Update ()
     {
-        Vector3 movedir = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        Vector3 movedir = new Vector3(Input.GetAxis("Horizontal") * 2, 0.0f, Input.GetAxis("Vertical") * 2);
         controller.Move(movedir * Time.deltaTime * 2.0f);
 	}
 }
