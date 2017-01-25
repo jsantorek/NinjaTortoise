@@ -1,6 +1,6 @@
-﻿#if UNITY_EDITOR
+﻿//#if UNITY_EDITOR
 using UnityEngine;
-#endif
+//#endif
 using UnityEngine.UI;
 using System.Collections;
 
