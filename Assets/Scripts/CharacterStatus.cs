@@ -8,6 +8,7 @@ public class CharacterStatus : MonoBehaviour
 {
     public Text GUI_Objectives;
     public Text GUI_Exposition;
+    public Text GUI_EndGame;
 
     private float e_min = 0.0f;
     private float e_max = 100.0f;
@@ -48,11 +49,27 @@ public class CharacterStatus : MonoBehaviour
         objectives_completed++;
         GUI_Objectives.text = objectives_completed.ToString() + " / " + objectives_all.ToString();
         if (objectives_completed >= objectives_all)
-            Debug.Log("GAME WON");
+            GAMEOVER();
     }
 
     public void Caught()
     {
-        Debug.LogError("GAME OVER");
+        GAMEOVER();
+    }
+
+    private void GAMEOVER()
+    {
+        gameObject.GetComponent<CharacterMotor>().enabled = false;
+        GUI_EndGame.enabled = true;
+        if(objectives_completed >= objectives_all)
+        {
+            GUI_EndGame.color = Color.green;
+            GUI_EndGame.text = "YOU WIN";
+        }
+        else
+        {
+            GUI_EndGame.color = Color.red;
+            GUI_EndGame.text = "YOU LOOSE";
+        }
     }
 }
