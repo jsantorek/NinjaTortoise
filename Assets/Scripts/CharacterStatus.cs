@@ -9,18 +9,22 @@ public class CharacterStatus : MonoBehaviour
     public Text GUI_Objectives;
     public Text GUI_Exposition;
     public Text GUI_EndGame;
+    public Text GUI_Time;
 
     private float e_min = 0.0f;
     private float e_max = 100.0f;
+    private float time;
     public float exposition;
     private int objectives_all;
     public int objectives_completed = 0;
+    private bool gameOn = true;
 
     private ArrayList enemies;
 
     void Start()
     {
         exposition = 50.0f;
+        time = 0.0f;
         objectives_all = GameObject.FindGameObjectsWithTag("Objective").Length;
         GUI_Objectives.text = objectives_completed.ToString() + "/" + objectives_all.ToString();
         GUI_Exposition.text = exposition.ToString() + "%";
@@ -28,6 +32,13 @@ public class CharacterStatus : MonoBehaviour
         enemies = new ArrayList();
         foreach (GameObject enemy in enemiess)
             enemies.Add(enemy.GetComponent<EnemyAI>());
+    }
+
+    void FixedUpdate()
+    {
+        if(gameOn)
+            time += Time.fixedDeltaTime;
+        GUI_Time.text = time.ToString("N" + 2);
     }
 
     public bool isExposed()
@@ -59,6 +70,7 @@ public class CharacterStatus : MonoBehaviour
 
     private void GAMEOVER()
     {
+        gameOn = false;
         gameObject.GetComponent<CharacterMotor>().enabled = false;
         GUI_EndGame.enabled = true;
         if(objectives_completed >= objectives_all)
