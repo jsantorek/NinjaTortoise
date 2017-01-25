@@ -3,9 +3,10 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float searchingTurnSpeed = 120f;
-    public float searchingDuration = 4f;
-    public float sightRange = 20f;
+    private float c_min = 3, c_max = 18;
+    public float searchingTurnSpeed = 160f;
+    public float searchingDuration = 8f;
+    public float sightRange = 200.0f;
     public Transform[] wayPoints;
     public Transform eyes;
     public Vector3 offset = new Vector3(0, .5f, 0);
@@ -34,6 +35,11 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
     
+    public void Resize(float exposition)
+    {
+        GetComponent<SphereCollider>().radius = (c_min - c_max) * exposition / 100;
+    }
+
     void Start()
     {
         currentState = patrolState;
@@ -47,5 +53,10 @@ public class EnemyAI : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currentState.OnTriggerEnter(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        currentState.OnTriggerExit(other);
     }
 }

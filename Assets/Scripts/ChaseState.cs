@@ -24,6 +24,11 @@ public class ChaseState : IEnemyState
 
     }
 
+    public void OnTriggerExit(Collider other)
+    {
+        ToAlertState();
+    }
+
     public void ToPatrolState()
     {
 

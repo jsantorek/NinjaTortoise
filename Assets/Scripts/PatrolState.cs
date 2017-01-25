@@ -24,6 +24,11 @@ public class PatrolState : IEnemyState
             ToAlertState();
     }
 
+    public void OnTriggerExit(Collider other)
+    {
+
+    }
+
     public void ToPatrolState()
     {
         Debug.Log("Can't transition to same state");
