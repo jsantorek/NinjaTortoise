@@ -15,12 +15,18 @@ public class CharacterStatus : MonoBehaviour
     private int objectives_all;
     public int objectives_completed = 0;
 
+    private ArrayList enemies;
+
     void Start()
     {
         exposition = 50.0f;
         objectives_all = GameObject.FindGameObjectsWithTag("Objective").Length;
         GUI_Objectives.text = objectives_completed.ToString() + "/" + objectives_all.ToString();
         GUI_Exposition.text = exposition.ToString() + "%";
+        GameObject[] enemiess = GameObject.FindGameObjectsWithTag("Enemy");
+        enemies = new ArrayList();
+        foreach (GameObject enemy in enemiess)
+            enemies.Add(enemy.GetComponent<EnemyAI>());
     }
 
     public bool isExposed()
@@ -33,6 +39,8 @@ public class CharacterStatus : MonoBehaviour
         exposition += e;
         exposition = Mathf.Clamp(exposition, e_min, e_max);
         GUI_Exposition.text = exposition.ToString() + " %";
+        foreach (EnemyAI enemy in enemies)
+            enemy.Resize(exposition);
     }
 
     public void ObjectiveReached()

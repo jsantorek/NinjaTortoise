@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 
 public class AlertState : IEnemyState
 
 {
     private readonly EnemyAI enemy;
-    private float searchTimer;
+    private float searchTimer, wanderTimer;
+    private Vector3 wander;
 
     public AlertState(EnemyAI statePatternEnemy)
     {
@@ -23,10 +25,16 @@ public class AlertState : IEnemyState
 
     }
 
+    public void OnTriggerExit(Collider other)
+    {
+
+    }
+
     public void ToPatrolState()
     {
         enemy.currentState = enemy.patrolState;
         searchTimer = 0f;
+        wanderTimer = 0f;
     }
 
     public void ToAlertState()
@@ -38,6 +46,7 @@ public class AlertState : IEnemyState
     {
         enemy.currentState = enemy.chaseState;
         searchTimer = 0f;
+        wanderTimer = 0f;
     }
 
     private void Look()
@@ -53,13 +62,28 @@ public class AlertState : IEnemyState
     private void Search()
     {
         enemy.spriteRenderer.material.color = Color.yellow;
-        enemy.navMeshAgent.Stop();
+        if(searchTimer == 0 || searchTimer >= searchTimer/3 )
+            wander = RandomNavSphere(enemy.transform.position, 5.0f, -1);
+        enemy.navMeshAgent.SetDestination(wander);
+
         enemy.transform.Rotate(0, enemy.searchingTurnSpeed * Time.deltaTime, 0);
+
         searchTimer += Time.deltaTime;
 
         if (searchTimer >= enemy.searchingDuration)
             ToPatrolState();
     }
 
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
 
+        randDirection += origin;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+
+        return navHit.position;
+    }
 }
