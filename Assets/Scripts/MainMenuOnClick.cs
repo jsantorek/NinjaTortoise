@@ -8,6 +8,5 @@ public class MainMenuOnClick : MonoBehaviour {
     public void LoadByIndex(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
-        Debug.Log("Nie działa");
     }
 }

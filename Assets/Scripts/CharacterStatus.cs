@@ -26,8 +26,8 @@ public class CharacterStatus : MonoBehaviour
         exposition = 50.0f;
         time = 0.0f;
         objectives_all = GameObject.FindGameObjectsWithTag("Objective").Length;
-        GUI_Objectives.text = objectives_completed.ToString() + "/" + objectives_all.ToString();
-        GUI_Exposition.text = exposition.ToString() + "%";
+        GUI_Objectives.text = "Collectables: " + objectives_completed.ToString() + "/" + objectives_all.ToString();
+        GUI_Exposition.text = "Exposition: " + exposition.ToString() + "%";
         GameObject[] enemiess = GameObject.FindGameObjectsWithTag("Enemy");
         enemies = new ArrayList();
         foreach (GameObject enemy in enemiess)
@@ -36,8 +36,12 @@ public class CharacterStatus : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(gameOn)
+        if (gameOn)
+        {
             time += Time.fixedDeltaTime;
+            GUI_Objectives.text = "Collectables: " + objectives_completed.ToString() + "/" + objectives_all.ToString();
+            GUI_Exposition.text = "Exposition: " + exposition.ToString() + "%";
+        }
         GUI_Time.text = time.ToString("N" + 2);
     }
 
