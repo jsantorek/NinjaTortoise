@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: a4da7f2f284f4bd409e93a5bd0e8c920
+timeCreated: 1485341707
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 40
+  forceTextureCase: -1
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Unity Titling
+  fontNames:
+  - Unity Titling
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
